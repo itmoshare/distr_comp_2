@@ -1,0 +1,7 @@
+0, INSERT test_key, 10
+100, INSERT test, 20
+100, SELECT test_key
+200, INSERT test_key, 30
+300, SELECT test_key
+400, INSERT another_key, 40
+500, SELECT

@@ -16,7 +16,7 @@ namespace Worker.Controllers
             _storage = storage;
         }
 
-        [HttpPut]
+        [HttpPut("{key}")]
         public void Put(string key, long data)
         {
             _storage.Insert(key, data);
@@ -26,9 +26,9 @@ namespace Worker.Controllers
         [HttpGet("{key}")]
         public ActionResult<long> Get(string key)
         {
-            var res = _storage.Select(key).Value;
-            Console.WriteLine($"Select: {res}");
-            return res;
+            var res = _storage.Select(key);
+            Console.WriteLine($"Select: result = {res}");
+            return res?.Value;
         }
 
         [HttpGet]

@@ -16,10 +16,9 @@ namespace core.FileReader
 
         public IEnumerable<Command> ReadCommands()
         {
-            if (_reader.EndOfStream)
-                yield break;
-
-            yield return Parse(_reader.ReadLine());
+            string line;
+            while ((line = _reader.ReadLine()) != null)
+                yield return Parse(line);
         }
 
         private static Command Parse(string line)
@@ -28,7 +27,7 @@ namespace core.FileReader
 
             var time = int.Parse(data[0]);
 
-            switch (Enum.Parse<CommandType>(data[1]))
+            switch (Enum.Parse<CommandType>(data[1], true))
             {
                 case CommandType.Insert:
                     return new Command(time, CommandType.Insert, data[2], int.Parse(data[3]));
@@ -37,7 +36,7 @@ namespace core.FileReader
                     if (data.Length == 2)
                         return new Command(time, CommandType.Select);
 
-                    return new Command(time, CommandType.Select, data[3]);
+                    return new Command(time, CommandType.Select, data[2]);
 
                 default:
                     throw new ArgumentException("Invalid input");

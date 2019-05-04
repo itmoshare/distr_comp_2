@@ -10,5 +10,7 @@ namespace core.Storage
 
         public string Key { get; }
         public long Value { get; }
+
+        public override string ToString() => $"{Key} - {Value}";
     }
 }

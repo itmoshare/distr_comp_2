@@ -8,7 +8,7 @@ namespace core.FileReader
             int time,
             CommandType type,
             string key = null,
-            int? value = null)
+            long? value = null)
         {
             Time = time;
             Type = type;
@@ -24,6 +24,6 @@ namespace core.FileReader
         public string Key { get; }
 
         [CanBeNull]
-        public int? Value { get; }
+        public long? Value { get; }
     }
 }

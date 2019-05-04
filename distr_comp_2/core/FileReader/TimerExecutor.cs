@@ -3,68 +3,44 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace core.FileReader
 {
-    public class TimerExecutor : IDisposable
+    public class TimerExecutor
     {
         private ReadOnlyCollection<Command> _commands;
         private Func<Command, Task> _commandCallback;
 
-        private readonly Timer _timer;
         private int _commandPos;
 
         private ConcurrentBag<Task> _startedTasks;
 
         public TimerExecutor(Command[] commands, Func<Command, Task> commandCallback)
         {
-            _commands = new ReadOnlyCollection<Command>(commands);
+            _commands = new ReadOnlyCollection<Command>(commands.OrderBy(x => x.Time).ToArray());
             _commandCallback = commandCallback;
             _startedTasks = new ConcurrentBag<Task>();
-
-            _timer = new Timer
-            {
-                AutoReset = false
-            };
-            _timer.Elapsed += (_, __) => HandleTick();
             _commandPos = 0;
         }
 
-        public void Start()
+        public async Task Execute()
         {
-            if (_commands.Any())
-                RegisterNextCommand(0);
-        }
-
-        private void HandleTick()
-        {
-            _startedTasks.Add(_commandCallback(_commands[_commandPos]));
-
-            if (_commandPos + 1 < _commands.Count)
+            _startedTasks.Clear();
+            if (!_commands.Any())
+                return;
+            while (_commandPos < _commands.Count)
             {
-                RegisterNextCommand(_commandPos + 1);
+                _startedTasks.Add(_commandCallback(_commands[_commandPos]));
+                _commandPos++;
+
+                if (_commandPos + 1 < _commands.Count)
+                    await Task.Delay(_commands[_commandPos + 1].Time - _commands[_commandPos].Time);
             }
         }
 
-        private void RegisterNextCommand(int pos)
+        public Task WaitComplete()
         {
-            _timer.Interval = pos != 0
-                ? _commands[pos].Time - _commands[pos - 1].Time
-                : _timer.Interval = _commands[0].Time;
-            _timer.Start();
-        }
-
-        public void Wait()
-        {
-            Task.WaitAll(_startedTasks.ToArray());
-            _startedTasks.Clear();
-        }
-        
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            _timer.Dispose();
+            return Task.WhenAll(_startedTasks.ToArray());
         }
     }
 }
