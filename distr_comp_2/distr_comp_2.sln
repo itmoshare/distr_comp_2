@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWCore", "MWCore\MWCore.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Master", "Master\Master.csproj", "{115738BB-35A6-46CE-B38B-D4EEDD03DA49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "generator", "generator\generator.csproj", "{637974B5-6095-4805-B132-41314BD49DF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{115738BB-35A6-46CE-B38B-D4EEDD03DA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115738BB-35A6-46CE-B38B-D4EEDD03DA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115738BB-35A6-46CE-B38B-D4EEDD03DA49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{637974B5-6095-4805-B132-41314BD49DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{637974B5-6095-4805-B132-41314BD49DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{637974B5-6095-4805-B132-41314BD49DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{637974B5-6095-4805-B132-41314BD49DF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5A03E869-5BCD-4376-9BD7-8B8BDD3A146A} = {5C9CDFCB-D09D-4E86-8A11-063E5186FEE3}

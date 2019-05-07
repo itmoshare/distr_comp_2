@@ -31,7 +31,7 @@ namespace Master
                 .ToArray(),
                 command =>
                 {
-                    Console.WriteLine($"Executing command {command.Time}...");
+                    //Console.WriteLine($"Executing command {command.Time}...");
                     switch (command.Type)
                     {
                         case CommandType.Insert:
