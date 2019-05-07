@@ -41,11 +41,8 @@ namespace core.FileReader
                 if (waitTask != null)
                     await waitTask;
             }
-        }
 
-        public Task WaitComplete()
-        {
-            return Task.WhenAll(_startedTasks.ToArray());
+            await Task.WhenAll(_startedTasks.ToArray());
         }
     }
 }

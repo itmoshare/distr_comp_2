@@ -53,9 +53,6 @@ namespace Master
             Console.WriteLine("Start executing...");
             await executor.Execute();
 
-            Console.WriteLine("Wait residual execution...");
-            await executor.WaitComplete();
-
             Console.WriteLine("Show stats...");
             await ShowStatsAsync();
 
