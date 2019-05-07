@@ -13,35 +13,38 @@ namespace generator
 
 			var name = args[0];
 			var size = int.Parse(args[1]);
-			using (var file = new StreamWriter(name))
+			for (int j = 1; j <= 3; j++)
 			{
-				var rnd = new Random();
-				var time = 0;
-				for (var i = 0; i < size; i++)
+				using (var file = new StreamWriter($"{name}{j}.txt"))
 				{
-					var values = Enum.GetValues(typeof(CommandType));
-					var command = (CommandType)values.GetValue(rnd.Next(values.Length));
-					switch (command)
+					var rnd = new Random();
+					var time = 0;
+					for (var i = 0; i < size; i++)
 					{
-						case CommandType.Insert:
-							var key = rnd.Next(0, size).ToString();
-							var value = rnd.Next();
-							file.WriteLine($"{time}, INSERT {key}, {value}");
-							break;
-						case CommandType.Select:
-							if (rnd.Next(0, 50) == 0)
-							{
-								file.WriteLine($"{time}, SELECT");
-							}
-							else
-							{
-								var selectKey = rnd.Next(0, size).ToString();
-								file.WriteLine($"{time}, SELECT {selectKey}");
-							}
-							break;
-					}
+						var values = Enum.GetValues(typeof(CommandType));
+						var command = (CommandType)values.GetValue(rnd.Next(values.Length));
+						switch (command)
+						{
+							case CommandType.Insert:
+								var key = rnd.Next(0, size).ToString();
+								var value = rnd.Next();
+								file.WriteLine($"{time}, INSERT {key}, {value}");
+								break;
+							case CommandType.Select:
+								if (rnd.Next(0, 50) == 0)
+								{
+									file.WriteLine($"{time}, SELECT");
+								}
+								else
+								{
+									var selectKey = rnd.Next(0, size).ToString();
+									file.WriteLine($"{time}, SELECT {selectKey}");
+								}
+								break;
+						}
 
-					time += rnd.Next(1, 50);
+						time += rnd.Next(1, 50);
+					}
 				}
 			}
 		}
